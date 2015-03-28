@@ -1,0 +1,13 @@
+.error-page
+  .main-wrapper
+    .feature.container
+      .error-content
+        = image_tag 'settings/500.jpg', alt: 'StepUp' , class: 'l-error'
+        .error-title
+          p translate='page.sorry'
+          p translate='page.page_not_found'
+          p.redirect translate= 'page.redirect_to_root'
+          a href=root_path
+            = image_tag 'settings/common/arrow.png', alt: 'StepUp', class: 't-btn'
+            p translate='page.root_page'
+        .clearfix

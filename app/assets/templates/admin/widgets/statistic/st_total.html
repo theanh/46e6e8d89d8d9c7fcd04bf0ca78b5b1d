@@ -1,0 +1,52 @@
+<div>
+    <div class="alert alert-info" ng-if="!has_result">
+        Please insert a repository path in the widget configuration
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-4 text-center">
+            <div class="panel padder-v item">
+                <div class="h1 text-info font-thin h1" ng-bind="count['seeker']"></div>
+                <span class="text-muted text-xs">Seeker</span>
+                <div class="top text-right w-full">
+                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 text-center">
+            <div class="block panel padder-v item">
+                <div class="h1 text-info font-thin h1" ng-bind="count['employer']"></div>
+                <span class="text-muted text-xs">Employer</span>
+                <div class="top text-right w-full">
+                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 text-center">
+            <div class="block panel padder-v item">
+                <div class="h1 text-info font-thin h1" ng-bind="count['new_job']"></div>
+                <span class="text-muted text-xs">New Job</span>
+                <div class="top text-right w-full">
+                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 text-center">
+            <div class="block panel padder-v item bg-primary">
+                <div class="text-white font-thin h1 block" ng-bind="count['job']"></div>
+                <span class="text-muted text-xs">Job</span>
+                <div class="top text-right w-full">
+                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 text-center">
+            <div class="block panel padder-v item bg-info">
+                <div class="text-white font-thin h1 block" ng-bind="count['apply_job']"></div>
+                <span class="text-muted text-xs">Apply Count</span>
+                <div class="top text-right w-full">
+                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

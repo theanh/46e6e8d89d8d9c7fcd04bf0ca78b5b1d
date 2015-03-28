@@ -1,0 +1,10 @@
+<div>
+    <div id="bl_st_seeker">
+      <div class="alert alert-info" ng-if="!chart_config">
+        Please insert a repository path in the widget configuration
+      </div>
+      <div ng-if="chart_config">
+        <highchart id="chart1" config="chart_config"></highchart>
+      </div>
+    </div>
+</div>

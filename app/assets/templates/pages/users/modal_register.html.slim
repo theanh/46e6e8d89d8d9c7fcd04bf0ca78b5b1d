@@ -1,0 +1,50 @@
+.modal-signup ng-controller= 'UsersCtrl'
+  .md-popup
+    .col-xs-12.no-padd.inn-popup
+      span.btn-close aria-hidden="true" ng-controller='HeadCtrl' ng-click='close_modal()'
+      form name='registrationForm' novalidate=''
+        fieldset ng-disabled='submitted' ng-show='!show_result'
+          .col-xs-6.md-form-popup.md-loading.left-part
+            h2.title-popup translate='user.sign_up'
+            .col-xs-12.no-padd.each-row
+              input.col-xs-12.ipt-popup autofocus='' name='email' ng-model='user.email' placeholder="{{ 'company.user.email_login' | translate }}"  type='email' ng-maxlength=255 ng-required-mod='' ng-mod-email='' check_email_exit='true' tabindex='201'
+              span.s-error ng-show="registrationForm.email.$error.requiredMod" translate='form.validate.required_email'  style='left: 0;'
+              span.s-error ng-show="registrationForm.email.$error.modEmail && !registrationForm.email.$error.requiredMod" translate='form.validate.invalid_email' style='left: 0;'
+              span.s-error ng-show="registrationForm.email.$error.modEmailExist && !registrationForm.email.$error.modEmail && !registrationForm.email.$error.requiredMod" translate='form.validate.exist_email' style='left: 0;'
+            .col-xs-12.no-padd.each-row
+              input.col-xs-12.ipt-popup name='password' ng-model='user.password' placeholder="{{ 'company.user.password_login' | translate }}" type='password' ng-maxlength-mod='20' ng-minlength-mod='6' ng-required-mod='' tabindex='201'
+              span.s-error ng-show="registrationForm.password.$error.maxLengthMod && !registrationForm.password.$error.requiredMod" translate='form.validate.maxlength_password' translate-values='{ num: "20"}' style='left: 0;'
+              span.s-error ng-show="registrationForm.password.$error.minLengthMod && !registrationForm.password.$error.requiredMod" translate='form.validate.minlength_password' translate-values='{ num: "6"}' style='left: 0;'
+              span.s-error ng-show="registrationForm.password.$error.requiredMod" translate='form.validate.required_password' style='left: 0;'
+            .col-xs-12.no-padd.each-row
+              input.col-xs-12.ipt-popup name='password_confirmation' ng-model='user.confirm_password' placeholder="{{ 'company.user.confirm_password_login' | translate }}" type='password' ng-maxlength-mod='20' ng-minlength-mod='6' ng-required-mod='' ng-match='password' tabindex='201'
+              span.s-error ng-show="registrationForm.password_confirmation.$error.minLengthMod && !registrationForm.password_confirmation.$error.requiredMod && !registrationForm.password_confirmation.$error.match" translate='form.validate.minlength_confirm_password' translate-values='{ num: "6"}' style='left: 0;'
+              span.s-error ng-show="registrationForm.password_confirmation.$error.requiredMod" translate='form.validate.required_confirm_password' style='left: 0;'
+              span.s-error ng-show="registrationForm.password_confirmation.$error.match && !registrationForm.password_confirmation.$error.requiredMod" translate='form.validate.password_no_match' style='left: 0;'
+              span.s-error ng-show="span.s-error.password_confirmation.$error.match && !span.s-error.password_confirmation.$error.requiredMod" translate='form.validate.password_no_match' style='left: 0;'
+            .col-xs-12.no-padd.each-row.container_register_loading
+              a.btn-popup href='javascript:void(0)' ng-click='register(user)' translate='user.sign_up'  tabindex='201'
+              button data-ng-click='register(user)' data-ng-hide='true' type='submit'
+              .dir-loading dir_loading='' ld-style='fading-bars' show-backdrop='false' show-overlay='true' loading-center='true'
+              span.s-error role='alert' ng-show='auth_error' ng-bind='auth_error'
+          .col-xs-6.md-form-popup.md-loading.right-part
+            .col-xs-12.md-login-social.mod-social.each-row.no-padd.container_login_social_loading
+              u translate='user.login_social'
+              .col-xs-12.no-padd
+                a.col-xs-12.no-padd.log-fb.log-social ng-click="login_with_social_network('facebook')" tabindex='201' Facebook
+                a.col-xs-12.no-padd.log-link.log-social ng-click="login_with_social_network('linkedin')"tabindex='201' Linkedin
+                a.col-xs-12.no-padd.log-gg.log-social ng-click="login_with_social_network('google_oauth2')" tabindex='201' Google
+                .dir-loading dir_loading='' ld-style='fading-bars' show-backdrop='false' show-overlay='true' loading-center='true'
+        fieldset ng-show='show_result'
+          col-xs-12.md-form-popup.md-loadin.md-getpass
+            h2.title-popup translate='user.sign_up'
+            .col-xs-12.no-padd.each-row style='text-align: center;'
+              .html-div.text-success dir_html_div='' content='auth_success' ng-show='auth_success'
+              .html-div.text-warning dir_html_div='' content='auth_reason' ng-show='auth_reason'
+              .html-div.text-danger dir_html_div='' content='auth_error' ng-show='auth_error'
+              /h3.text-success role='alert' ng-show='auth_success' ng-bind='auth_success'
+              /h3.text-warning role='alert' ng-show='auth_reason' ng-bind='auth_reason'
+              /h3.text-danger role='alert' ng-show='auth_error' ng-bind='auth_error'
+            .col-xs-12.no-padd.each-row
+              a.btn-login.btn-popup ng-controller='HeadCtrl' ng-click='close_modal()' type='button' translate='page.view_jobs' tabindex='201'
+

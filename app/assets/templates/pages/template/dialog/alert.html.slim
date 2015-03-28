@@ -1,0 +1,18 @@
+.alert.alert-success.no-margin role='alert' ng-show='auth_success'
+  button.close type='button' data-dismiss='alert' ng-click='close()'
+    span aria-hidden='true'
+      | &times;
+    span.sr-only translate='page.modal.close'
+  strong ng-bind='auth_success'
+.alert.alert-warning.no-margin role='alert' ng-show='auth_reason'
+  button.close type='button' data-dismiss='alert' ng-click='close()'
+    span aria-hidden='true'
+      | &times;
+    span.sr-only translate='page.modal.close'
+  strong ng-bind='auth_reason'
+.alert.alert-danger.no-margin role='alert' ng-show='auth_error'
+  button.close type='button' data-dismiss='alert' ng-click='close()'
+    span aria-hidden='true'
+      | &times;
+    span.sr-only translate='page.modal.close'
+  strong ng-bind='auth_error'

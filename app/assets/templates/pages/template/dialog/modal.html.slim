@@ -1,0 +1,8 @@
+.modal-custom
+  .modal-header
+    h2.title-popup ng-bind='title'
+  .modal-body
+    .html-div dir_html_div='' content='custom_html'
+  .modal-footer
+    button.btn.btn-large.btn-primary ng-click='ok()' translate='page.modal.ok'
+    button.btn.btn-large.btn-default ng-click='cancel()' translate='page.modal.cancel'

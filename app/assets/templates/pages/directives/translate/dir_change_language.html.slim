@@ -1,0 +1,11 @@
+.fixed-language ng-controller='HeadCtrl'
+  .content-laguage
+    .md-inner
+      span ng-bind='got_language |translate' style='float: left;'
+      ul.list-lang
+        li ng-class="(current_language == 'vi') ? 'active' : ''"
+          a href='javascript:void(0)' translate='vietnamese' ng-model='current_language' ng-click='changeLocal("vi")'
+        li ng-class="(current_language == 'ja') ? 'active' : ''"
+          a href='javascript:void(0)' translate='japanese' ng-model='current_language' ng-click='changeLocal("ja")'
+      .logo style='float: left;'
+        img ng-src='{{logo}}' style='width: 50px;padding: 2px;'

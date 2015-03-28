@@ -1,0 +1,44 @@
+.error-page{
+  .error-content{
+    padding: 70px 0px;
+
+  }
+  p{
+    font-size: 18px;
+    line-height: 15px;
+  }
+  .l-error{
+    float: left;
+    display: inline-block;
+    margin-left: 60px;
+    padding-right:20px ;
+  }
+  a {
+    line-height: 3.33;
+    border-radius: 0 !important;
+    background-color: #3469ea;
+    padding: 10px 85px 10px 65px;
+    display: inline-block;
+    p,img{
+      display: inline-block;
+    }
+    .t-btn{
+      margin-top: -5px;
+      padding-right: 10px;
+    }
+
+    color: #fff;
+  }
+
+  .error-title{
+    float: left;
+    margin-top: 40px;
+
+  }
+  .redirect{
+    padding-top: 30px;
+    font-style: italic;
+    font-size: 13px;
+    padding-bottom: 25px;
+  }
+}
