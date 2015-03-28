@@ -13,21 +13,6 @@ class Setup
       p "initialized #{table}"
     end
 
-    # # generate from program
-    # Init.images
-    # p "initialized images from program"
-    # Init.temp_badges
-    # p "initialized temp_badges from program"
-    # Init.badges
-    # p "initialized badges from program"
-    # Init.users
-    # p "initialized users from program"
-    #
-    # if Rails.env == 'development'
-    #   p "Generating sample data"
-    #   Sample.create_teams(3)
-    # end
-
     conn.execute('SET FOREIGN_KEY_CHECKS = 1')
     p "setup finished successfully"
   end

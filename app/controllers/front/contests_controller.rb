@@ -1,6 +1,5 @@
-class ContestsController < ApplicationController
-
-  helper_method :survey, :participant
+class Front::ContestsController < FrontController
+  helper_method :survey, :participantFront
 
   # create a new attempt to this survey
   def new

@@ -8,9 +8,14 @@ gem 'rails', '4.1.5'
 # database
 # ===
 gem 'mysql2'
+# Bulk insert. ex   User.import users => makes bulk insert sql
+gem 'activerecord-import'
 # Create survey
 gem 'survey', '~> 0.1'
-
+# for soft deletion
+gem 'rails4_acts_as_paranoid'
+#Import export csv,excel
+gem 'roo'
 # ============================================================
 # template processors
 # ===
@@ -64,3 +69,8 @@ gem 'spring',        group: :development
 # helper
 # ===
 gem 'nokogiri', '~> 1.6.6.2'
+
+# # ============================================================
+# # admin
+# # ===
+# gem 'rails_admin'
