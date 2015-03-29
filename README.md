@@ -5,7 +5,7 @@ Application allows user to take a survey
 1. Install dependencies
 2. Migrate database
 3. Setup sample data
-- Run these command:
+- Run these commands:
   + bundle install --path vendor/bundle
   + bundle exec rake db:migrate
   + bundle exec rake db:setup
