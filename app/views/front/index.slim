@@ -2,7 +2,7 @@
   .col-md-4
     h2 Welcome to IndexMedia Survey
     hr  
-    button.btn.btn-primary.btn-lg ng-click="takeSurvey()" ng-hide="successInfo" type="button" Take the Survey
+    a.btn.btn-primary.btn-lg ng-href="#{survey_path}" ng-hide="successInfo" type="button" Take the Survey
   .col-md-8
     =image_tag 'settings/common/panel.png', :alt => 'Index Media', :class => 'img-full'
     / ul

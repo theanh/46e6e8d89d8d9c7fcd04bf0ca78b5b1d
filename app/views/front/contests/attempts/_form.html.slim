@@ -1,0 +1,38 @@
+.wrapper ng-controller='SurveyCtrl'
+	.row
+		.col-sm-offset-3.col-sm-9
+			h2 Survey #{@survey.name}
+	.row
+		.col-sm-offset-3.col-sm-6
+			form.form-horizontal.form-validation name='form-survey' ng-submit="submitSurvey()"
+				.panel
+				  .wrapper-lg
+						.form-group.pull-in.clearfix
+							h4.m-t-none
+								| What is your name?
+								em.text-muted 
+									| (allow 'a-zA-Z0-9', 4-10 length)
+								code
+									| *
+							input.form-control type="text" placeholder="name" ng-pattern="/^[a-zA-Z0-9]{4,10}$/" required="" ng-model="attempts.name"
+						.form-group.pull-in.clearfix
+							h4.m-t-none
+								| What is your email?
+								code
+									| *
+							input.form-control type="email" placeholder="Email" required="" ng-model="attempts.email"
+				- @survey.questions.each_with_index do |question, index|
+					.panel
+					  .wrapper-lg
+					  	div
+					    	h4.m-t-none =((index + 1).to_s + '. ' + question.text).html_safe
+					  	div
+					      - question.options.each do |option|
+					      	.checkbox
+					      		label.i-checks
+						      		=check_box_tag "survey_attempt[answers_attributes][#{index}][option_id][]", option.id
+						      		i
+						      		=option.text.html_safe
+    		footer.wrapper-lg.bg-light.lter
+    			button.btn.btn-primary.btn-lg ng-click='submitSurvey()'
+    				| Submit

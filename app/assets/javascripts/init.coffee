@@ -8,6 +8,7 @@
   angular.module('AppSurvey', [
     # 'angular-data.DSCacheFactory'
     'pascalprecht.translate'
+    'ui.bootstrap'
     'highcharts-ng'
     'ValidateService'
     'ModalModule'

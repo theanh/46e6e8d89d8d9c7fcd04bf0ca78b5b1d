@@ -1,10 +1,10 @@
+'use strict'
 # ----------------------------------------------------------
 # @: The Anh
 # d: 141120
 # f: Common controller -> get common info of system
 # ----------------------------------------------------------
 angular.module('AppSurvey').controller 'CommonCtrl', ($scope, Common) ->
-  'use strict'
   # global variable
   $common = new Common()
 

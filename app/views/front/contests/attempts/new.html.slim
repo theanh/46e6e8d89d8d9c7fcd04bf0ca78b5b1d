@@ -1,0 +1,7 @@
+-if @survey.nil?
+  p #{@participant.email} there are not Active Surveys right now.
+- elsif @survey.avaliable_for_participant?(@participant)
+  = render 'front/contests/attempts/form'
+- else
+  p
+    #{@participant.email} spent all the possible attempts to answer this Survey

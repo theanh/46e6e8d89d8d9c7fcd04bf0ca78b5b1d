@@ -11,9 +11,9 @@ nav.navbar.navbar-default role="navigation"
     .collapse.navbar-collapse.navbar-ex1-collapse
       ul.nav.navbar-nav
         li
-          a href="#/survey"  Take the Survey
-        li ng-show="auth" 
-          a href="#/result"  Survey Result
+          a ng-href="#{survey_path}"  Take the Survey
+        / li ng-show="auth" 
+        /   a href="#/result"  Survey Result
       / ul.nav.navbar-nav.navbar-right
       /   li.active.ng-hide ng-hide="auth" 
       /     a href="#/login"  Login
