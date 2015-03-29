@@ -44,4 +44,15 @@
     ]
     $httpProvider.interceptors.push 'railsAssetsInterceptor'
     return
+
+  # # --------------------------------------------------------
+  # # global process
+  # # --- focus on the first input when the page loads
+  # window.focus = (selector) ->
+  #   # timeout is needed for Chrome (is a bug in Chrome)
+  #   setTimeout ()->
+  #     $(!!selector ? selector : '[autofocus]:not(:focus)').first().focus()
+  #   , 1
+  #   return
+  # return
 ) window.angular

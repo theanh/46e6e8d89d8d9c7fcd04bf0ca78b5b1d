@@ -20,12 +20,14 @@ angular.module('AppSurvey')
 
   # --------------------------------------------------------
   # public process
+
   # --- validate
   $scope.checkValidate = ()->
     return
 
   # --- submit
   $scope.submitSurvey = () ->
+    console.log 1
     if $scope.attempts
       unless $scope.submitted
         unless $scope.attempts['name'] || $scope.attempts['email']
@@ -42,6 +44,27 @@ angular.module('AppSurvey')
         $survey.attemptSurvey($scope.master).then (res)->
           console.log res
         $scope.submitted = false
+    # if ($scope.form_survey.$valid)
+    #   console.log 1
+    #   if $scope.attempts
+    #     unless $scope.submitted
+    #       unless $scope.attempts['name'] || $scope.attempts['email']
+    #         return false
+    #       $scope.submitted = true
+    #       $scope.auth_error = null
+
+    #       # clone scope
+    #       $scope.attempts['survey_id'] = $scope.survey_id
+    #       $scope.master = angular.copy $scope.attempts
+
+    #       # add new instances
+    #       $survey = new Survey()
+    #       $survey.attemptSurvey($scope.master).then (res)->
+    #         console.log res
+    #       $scope.submitted = false
+    # else
+    #   console.log 2
+    #   $scope.form_survey.submitted = true
     return
 
   # --- show survey result
@@ -89,6 +112,7 @@ angular.module('AppSurvey')
       survey_id: survey_id
     $survey.showSurveyResult(param).then (res)->
       if res.status == 1 && res.data[0] && res.data[0]['question_id']
+        # analyze returned data, group by question
         data_statistic = []
         cur_q = res.data[0]['question_id']
         vi_length = res.data.length - 1

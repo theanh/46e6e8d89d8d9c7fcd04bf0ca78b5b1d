@@ -1,206 +1,11 @@
 'use strict'
 angular.module("AppSurvey")
-.directive "focus", ($timeout) ->
-  scope:
-    trigger: "@focus"
-  link: (scope, element) ->
-    scope.$watch "trigger", (value) ->
-      if value is "true"
-        $timeout ->
-          element[0].focus()
-          return
-      return
-
-    return
-
-.directive "httpPrefix", ->
-  restrict: "A"
-  require: "ngModel"
-  link: (scope, element, attrs, controller) ->
-    ensureHttpPrefix = (value) ->
-      # Need to add prefix if we don't have http:// prefix already AND we don't have part of it
-      if value and not /^(https?):\/\//i.test(value) and "http://".indexOf(value) is -1
-        value = value.charAt(value.length - 1)
-        controller.$setViewValue "http://" + value
-        controller.$render()
-        "http://" + value
-      else
-        value
-    controller.$formatters.push ensureHttpPrefix
-    controller.$parsers.splice 0, 0, ensureHttpPrefix
-    return
-
-.directive "ngInitial", ->
-  restrict: "A"
-  controller: [
-    "$scope"
-    "$element"
-    "$attrs"
-    "$parse"
-    ($scope, $element, $attrs, $parse) ->
-      getter = undefined
-      setter = undefined
-      val = undefined
-      val = $attrs.ngInitial or $attrs.value
-      getter = $parse($attrs.ngModel)
-      setter = getter.assign
-      setter $scope, val
-  ]
-
-#Author by Quoc Co: modified validate
-.directive "ngMatch", [->
-  require: "ngModel"
-  link: (scope, elem, attrs, ctrl) ->
-    ctrl.$setValidity "", false
-    firstPassword = '[name="' + attrs.ngMatch + '"]'
-    elem.on "focusout", ->
-      scope.$apply ->
-        v = elem.val() is $(firstPassword).val()
-        if v == false
-          elem.addClass('invalid-mod')
-        ctrl.$setValidity "match", v
-        ctrl.$setValidity "", v
-        return
-      return
-
-    elem.on "focusin", ->
-      scope.$apply ->
-        elem.removeClass('invalid-mod')
-        ctrl.$setValidity "match", true
-        return
-      return
-    return
-]
-
-.directive "ngRequiredMod", [->
-  scope:
-    data: '=rqSource'
-  require: "ngModel"
-  link: (scope, elem, attrs, ctrl) ->
-    # @: The Anh - 141217 - fix case input has data already
-    scope.$watch 'data',()->
-      valid = false
-      valid = true if scope.data && scope.data != ''
-      ctrl.$setValidity "", valid
-    # end The Anh
-
-    elem.on "focusout", ->
-      scope.$apply ->
-        v = elem.val().length > 0
-        if v == false
-          elem.addClass('invalid-mod')
-        ctrl.$setValidity "", v
-        ctrl.$setValidity "requiredMod", v
-        return
-      return
-
-    elem.on "focusin", ->
-      scope.$apply ->
-        elem.removeClass('invalid-mod')
-        ctrl.$setValidity "requiredMod", true
-        return
-      return
-
-    return
-]
-
-.directive "ngModEmail", ["$http", "$rails"
-  (async, $rails) ->
-    return (
-      require: "ngModel"
-      link: (scope, elem, attrs, ctrl) ->
-        # @: The Anh - 141217 - fix case input has data already
-        scope.$watch attrs.ngModel, (new_val)->
-          valid = false
-          valid = true if new_val && new_val != ''
-          ctrl.$setValidity "", valid
-        # end The Anh
-
-        EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i
-        elem.on "focusout", ->
-          scope.$apply ->
-            val = elem.val()
-            v = EMAIL_REGEXP.test(val)
-            if v == false
-              elem.addClass('invalid-mod')
-            else
-              # call api
-              req =
-                email: val
-              ajaxConfiguration =
-                method: "POST"
-                url: $rails.root_url + 'api/v1/api_email_exist'
-                data: req
-              async(ajaxConfiguration).success (data) ->
-                result = data
-                ve = result.status == 1 ? true : false
-                if ve == false
-                  elem.addClass('invalid-mod')
-                ctrl.$setValidity "modEmailExist", ve
-                ctrl.$setValidity "", ve
-                return
-            ctrl.$setValidity "modEmail", v
-            ctrl.$setValidity "", v
-            return
-          return
-
-        elem.on "focusin", ->
-          scope.$apply ->
-            elem.removeClass('invalid-mod')
-            ctrl.$setValidity "modEmail", true
-            return
-          return
-        return
-    )
-]
-
-.directive "ngMaxlengthMod", [->
-  require: "ngModel"
-  link: (scope, elem, attrs, ctrl) ->
-    ctrl.$setValidity "", false
-    elem.on "focusout", ->
-      scope.$apply ->
-        v = elem.val().length <= parseInt(elem.attr("ng-maxlength-mod"))
-        if v == false
-          elem.addClass('invalid-mod')
-        ctrl.$setValidity "maxLengthMod", v
-        ctrl.$setValidity "", v
-        return
-      return
-
-    elem.on "focusin", ->
-      scope.$apply ->
-        elem.removeClass('invalid-mod')
-        ctrl.$setValidity "maxLengthMod", true
-        return
-      return
-    return
-]
-
-.directive "ngMinlengthMod", [->
-  require: "ngModel"
-  link: (scope, elem, attrs, ctrl) ->
-    ctrl.$setValidity "", false
-    elem.on "focusout", ->
-      scope.$apply ->
-        v = elem.val().length >= parseInt(elem.attr("ng-minlength-mod"))
-        if v == false
-          elem.addClass('invalid-mod')
-        ctrl.$setValidity "minLengthMod", v
-        ctrl.$setValidity "", v
-        return
-      return
-
-    elem.on "focusin", ->
-      scope.$apply ->
-        elem.removeClass('invalid-mod')
-        ctrl.$setValidity "minLengthMod", true
-        return
-      return
-    return
-]
-
-.directive 'scroll', ($window) ->
+# ----------------------------------------------------------------------------------------
+# @: The Anh
+# d: 150329
+# f: Directive Scroll To Top
+# ----------------------------------------------------------------------------------------
+.directive 'scroll', [($window) ->
   (scope, element, attrs) ->
     angular.element($window).bind 'scroll', ->
       if @pageYOffset >= 300
@@ -210,3 +15,42 @@ angular.module("AppSurvey")
       scope.$apply()
       return
     return
+]
+
+# ----------------------------------------------------------------------------------------
+# @: The Anh
+# d: 150329
+# f: Directive handle form submit: 
+# --- only submit if form valid
+# --- auto focus on the first invalid element
+# LR: 
+# --- 1. http://blog.projectnibble.org/2014/01/10/advanced-form-control-with-angularjs-and-bootstrap3
+# --- 2. http://stackoverflow.com/questions/20365121/set-focus-on-first-invalid-input-in-angularjs-form
+# ----------------------------------------------------------------------------------------
+.directive 'validSubmit', [
+  '$parse'
+  ($parse) ->
+    require: 'form'
+    link: (scope, elem, iAttrs, form) ->
+      form.$submitted = false
+      # get a hold of the function that handles submission when form is valid
+      fn = $parse(iAttrs.validSubmit)
+      # register DOM event handler and wire into Angular's lifecycle with scope.$apply
+      elem.on 'submit', (event) ->
+        scope.$apply ->
+          # on submit event, set submitted to true (like the previous trick)
+          form.$submitted = true
+          # if form is valid, execute the submission handler function and reset form submission state
+          if form.$valid
+            fn scope, $event: event
+            console.log 2
+            form.$submitted = false
+          else
+            # auto focus on the first invalid element!
+            frt_invalid = angular.element(elem[0].querySelector('.ng-invalid'))[0]
+            if frt_invalid
+              frt_invalid.focus()
+          return
+        return
+      return
+]
