@@ -34,35 +34,74 @@ angular.module('AppSurvey')
         $scope.auth_error = null
 
         # clone scope
-        # $scope.attempts['survey_id'] = $scope.survey_id
+        $scope.attempts['survey_id'] = $scope.survey_id
         $scope.master = angular.copy $scope.attempts
         # add new instances
         $survey = new Survey()
         $survey.attemptSurvey($scope.master).then (res)->
           console.log res
         $scope.submitted = false
-      # Session.login(user.email, user.password, user.remember).then ((response) ->
-      #   $common.hideLoading()
-      #   if response.data.type == 'UserType::Normal'
-      #     if is_redirect == false
-      #       url_href = $window.location.reload()
-      #     else
-      #       url_href = _url.logged_in
-      #   else
-      #     url_href = _url.company_manager_job
-      #   if response.status is 1
-      #     $common.responseAlertDeffer(response).then ()->
-      #       $window.location.href = url_href
-      #   else
-      #     $scope.auth_error = response.message
-      #   $scope.submitted = false
-      #   return
-      # ), (response) ->
-      #   $scope.auth_error = $translate.instant 'api.message.error.server_offline'
-      #   $common.hideLoading()
-      #   $scope.submitted = false
-      #   return
+    return
 
+  # --- show survey result
+  $scope.showResult = (survey_id)->
+    $scope.chart_config = 
+      options:
+        chart: 
+          plotBackgroundColor: null
+          plotBorderWidth: null
+          plotShadow: false
+        tooltip: 
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        plotOptions: 
+          pie:
+            allowPointSelect: true
+            cursor: 'pointer'
+            dataLabels:
+              enabled: true
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+              style: 
+                color: Highcharts.theme && Highcharts.theme.contrastTextColor || 'black'
+        title: text: ''
+      series: [{
+        type: 'pie'
+        name: ''
+        data: [
+          [
+            'Firefox'
+            45.0
+          ]
+          [
+            'IE'
+            26.8
+          ]
+          {
+            name: 'Chrome'
+            y: 12.8
+            sliced: true
+            selected: true
+          }
+          [
+            'Safari'
+            8.5
+          ]
+          [
+            'Opera'
+            6.2
+          ]
+          [
+            'Others'
+            0.7
+          ]
+        ]
+      }]
+      loading: false
+      # size:
+      #   width: 400
+      #   height: 300
+      func: (chart) ->
+        console.log chart
+        return
     return
 
   return

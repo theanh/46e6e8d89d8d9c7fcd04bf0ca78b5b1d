@@ -19,5 +19,6 @@ AppSurvey::Application.routes.draw do
 
     #### SURVEY PATH ####
     get '/survey' => 'contests#survey', as: 'survey'
+    get '/survey/result' => 'contests#survey_result', as: 'survey_result'
   end
 end

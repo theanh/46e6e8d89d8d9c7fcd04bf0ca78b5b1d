@@ -1,52 +1,66 @@
 class Api::V1Controller < ApiController
-  ###################
-  #### COMMON    ####
-  ###################
-  VALIDATE_SURVEY = {
-    'survey_id' => {'type' => 'int', 'require' => {'survey' => true}},
-    'email' => {'type' => 'email', 'require' => {'survey' => true}},
-    'name' => {'type' => 'string', 'require' => {'survey' => true}},
-    'question' => {'type' => 'array', 'require' => {}}
-  }
-  # ----------------------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------------
   # @: The Anh
   # d: 150329
   # TODO: submit survey
   # method: post
-  # ----------------------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------------
   def api_survey1
     # check params
-    p params[:survey]
-    validated_param = validateParam(VALIDATE_SURVEY, params[:survey], 'survey')
-    return if validated_param['failed']
-    p validateParam
-    # validateParam['questions'].each_with_index do |question, index|
-    #   p 'adssad'
-    #   p question
-    # end
-    render_success(validated_param) and return
+    render_failed(100, t('common.error.missing_param', {obj: 'survey'})) and return if params[:survey].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'survey id'})) and return if params[:survey][:survey_id].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'user email'})) and return if params[:survey][:email].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'user name'})) and return if params[:survey][:name].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'question'})) and return if params[:survey][:question].nil?
 
-    # survey = Survey::Survey.active.find_by(:id => validated_param['survey_id'])
-    # attempt = survey.attempts.new
+    survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
+    render_failed(100, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
+    attempt = survey.attempts.new
+    # check user exist?
+    user = User.find_by(:email => params[:survey][:email])
+    if user.nil?
+      # create new if not exist
+      user = User.create!(
+        email: params[:survey][:email], 
+        name: params[:survey][:name]
+      )
+    end
+    # set participant
+    attempt.participant = user
+    attempt.save!
+    params[:survey][:question].each do |question|
+      question[1].each do |op|
+        if op[1]
+          attempt.answers.create!(
+            question_id: question[0],
+            option_id: op[0]
+          )
+        end
+      end
+    end
+    render_success(attempt.answers) and return
+  end
 
-    # # check user exist?
-    # user = User.find_by(:email => validated_param['email'])
-    # if user.nil?
-    #   # create new if not exist
-    #   user = User.create!(
-    #     email: validated_param['email'], 
-    #     name: validated_param['name']
-    #   )
-    # end
-    # # set participant
-    # attempt.participant = user
-    # validateParam['questions'].each_with_index do |question_id, index|
-    #   attempt.answers.create!(
-    #     question_id: question_id,
-    #     option_id: index
-    #   )
-    # end
-    # render_success(info) and return
+  # ---------------------------------------------------------------------------------
+  # @: The Anh
+  # d: 150329
+  # TODO: get survey result
+  # method: post
+  # ---------------------------------------------------------------------------------
+  def api_survey2
+    # check params
+    render_failed(100, t('common.error.missing_param', {obj: 'survey'})) and return if params[:survey].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'survey id'})) and return if params[:survey][:survey_id].nil?
+    render_failed(100, t('common.error.missing_param', {obj: 'question id'})) and return if params[:survey][:question_id].nil?
+    survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
+    render_failed(100, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
+    question = survey.questions.find_by(:id => params[:survey][:question_id].to_i.abs)
+    render_failed(100, t('common.error.not_found', {obj: 'question'})) and return if question.nil?
+
+    info = Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => params[:survey][:question_id].to_i.abs).group('`survey_options`.`id`').count('survey_answers.id')
+    render_success(info) and return
+    # # test
+    # Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => 1).group('`survey_options`.`id`').count('survey_answers.id')
   end
 
   private
