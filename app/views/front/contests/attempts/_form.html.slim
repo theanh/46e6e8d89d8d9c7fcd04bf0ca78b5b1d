@@ -1,11 +1,10 @@
-.wrapper ng-controller="SurveyCtrl" ng-init="survey_id = #{@survey.id}"
+.wrapper ng-controller="SurveyCtrl" ng-init="initSurvey(#{@survey.id}, #{@arr_chk_valid_questions})"
 	.row
 		.col-sm-offset-3.col-sm-9
 			h2 
 				| Survey #{@survey.name}
 	.row
 		.col-sm-offset-3.col-sm-6
-			/ form.form-horizontal.form-validation name="form_survey" novalidate="" ng-submit="submitSurvey()"
 			form.form-horizontal.form-validation name="form_survey" novalidate="" valid-submit="submitSurvey()"
 				fieldset
 					.panel
@@ -18,25 +17,25 @@
 										| (allow 'a-zA-Z0-9', 4-10 length)
 									code
 										| *
-								input.form-control type="text" name="name" placeholder="name" ng-pattern="/^[a-zA-Z0-9 ]{4,10}$/" required="" ng-model="attempts.name" autofocus=""
+								input.form-control type="text" name="name" placeholder="Name" autofocus="" tabindex="100" ng-pattern="/^[a-zA-Z0-9 ]{4,10}$/" required="" ng-model="attempts.name"
 							.form-group.pull-in.clearfix
 								h4.m-t-none
 									| What is your email?
 									code
 										| *
-								input.form-control type="email" name="email" placeholder="Email" required="" ng-model="attempts.email"
+								input.form-control type="email" name="email" placeholder="Email" tabindex="100" required="" ng-model="attempts.email"
 					- @survey.questions.each_with_index do |question, index|
 						.panel
-						  .wrapper-lg
+						  .wrapper-lg.cus-validate tabindex="100" ng-class="!cus_validate.question[#{question.id}] ? 'ng-invalid block-invalid': ''" ng-click="cus_validate.question[#{question.id}] = true; form_survey.$valid=true;"
 						  	div
-						    	h4.m-t-none =((index + 1).to_s + '. ' + question.text).html_safe
+						    	h4.m-t-none =((index + 1).to_s + '. ' + question.text).html_safe + (' <code>*</code>').html_safe
 						  	div
 						      - question.options.each do |option|
 						      	.checkbox
 						      		label.i-checks
-						      			input type="checkbox" ng-model="attempts.question[#{question.id}][#{option.id}]" name="attempts.question_#{question.id}_#{option.id}"
+						      			input type="checkbox" name="attempts.question_#{question.id}_#{option.id}" ng-model="attempts.question[#{question.id}][#{option.id}]"
 							      		i
 							      		=option.text.html_safe
 	    		footer.wrapper-lg.bg-light.lter
-	    			button.btn.btn-primary.btn-lg type="submit"
+	    			button.btn.btn-primary.btn-lg type="submit" tabindex="100"
 	    				| Submit

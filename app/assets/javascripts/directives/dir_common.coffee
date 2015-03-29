@@ -43,13 +43,15 @@ angular.module("AppSurvey")
           # if form is valid, execute the submission handler function and reset form submission state
           if form.$valid
             fn scope, $event: event
-            console.log 2
             form.$submitted = false
           else
-            # auto focus on the first invalid element!
-            frt_invalid = angular.element(elem[0].querySelector('.ng-invalid'))[0]
-            if frt_invalid
-              frt_invalid.focus()
+            # timeout is needed for Chrome (is a bug in Chrome)
+            setTimeout ()->
+              # auto focus on the first invalid element!
+              frt_invalid = elem.find('.ng-invalid')[0]
+              if frt_invalid
+                frt_invalid.focus()
+            , 1
           return
         return
       return

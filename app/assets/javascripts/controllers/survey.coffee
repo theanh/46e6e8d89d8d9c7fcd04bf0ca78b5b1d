@@ -12,38 +12,79 @@ angular.module('AppSurvey')
 
   # --------------------------------------------------------
   # public variable
-  $scope.submitted = false # variable set state submitted
+  # $scope.submitted = false # variable set state submitted
   $scope.load_error = null
   $scope.load_result = null
   $scope.master = {}
   $scope.attempts = {}
+  $scope.cus_validate = {}
 
   # --------------------------------------------------------
   # public process
+  # --- init survey
+  $scope.initSurvey = (survey_id, arr_chk_valid_questions)->
+    $scope.survey_id = survey_id
+    # init custom validate value
+    $scope.cus_validate.question = {}
+    angular.forEach arr_chk_valid_questions, (value, index)->
+      $scope.cus_validate.question[value] = true
+    return
 
   # --- validate
   $scope.checkValidate = ()->
-    return
+    flg_validate = true
+    if !$scope.attempts.question
+      angular.forEach $scope.cus_validate.question, (value, index)->
+        if flg_validate
+          $scope.cus_validate.question[index] = false
+          flg_validate = false
+    else
+      angular.forEach $scope.cus_validate.question, (value, index)->
+        if flg_validate
+          if !$scope.attempts.question[index]
+            $scope.cus_validate.question[index] = false
+            flg_validate = false
+          else
+            if $scope.attempts.question[index].length == 0
+              $scope.cus_validate.question[index] = false
+              flg_validate = false
+            else
+              # scan value false
+              flg_validate_f = false
+              angular.forEach $scope.attempts.question[index], (v, i)->
+                flg_validate_f = true if v
+              unless flg_validate_f
+                $scope.cus_validate.question[index] = false
+                flg_validate = false
+
+    unless flg_validate
+      $scope.form_survey.$valid = false
+      
+      # timeout is needed for Chrome (is a bug in Chrome)
+      setTimeout(()->
+        # auto focus on the first invalid element!
+        frt_invalid = $('form[name=form_survey] .cus-validate.ng-invalid')[0]
+        if frt_invalid
+          frt_invalid.focus()
+      , 1)
+      
+      return false
+
+    return true
 
   # --- submit
   $scope.submitSurvey = () ->
-    console.log 1
-    if $scope.attempts
-      unless $scope.submitted
-        unless $scope.attempts['name'] || $scope.attempts['email']
-          return false
-        $scope.submitted = true
-        $scope.auth_error = null
+    # check custom validate
+    if $scope.checkValidate()
+      $scope.auth_error = null
+      # clone scope
+      $scope.attempts['survey_id'] = $scope.survey_id
+      $scope.master = angular.copy $scope.attempts
 
-        # clone scope
-        $scope.attempts['survey_id'] = $scope.survey_id
-        $scope.master = angular.copy $scope.attempts
-
-        # add new instances
-        $survey = new Survey()
-        $survey.attemptSurvey($scope.master).then (res)->
-          console.log res
-        $scope.submitted = false
+      # add new instances
+      $survey = new Survey()
+      $survey.attemptSurvey($scope.master).then (res)->
+        console.log res
     # if ($scope.form_survey.$valid)
     #   console.log 1
     #   if $scope.attempts

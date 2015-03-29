@@ -3,6 +3,7 @@ class Front::ContestsController < FrontController
 
   def survey
     @survey ||= Survey::Survey.active.first
+    @arr_chk_valid_questions = @survey.questions.as_json.collect { |item|  item['id'] }.compact
     render 'front/contests/attempts/new'
   end
 
