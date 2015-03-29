@@ -1,20 +1,20 @@
 module ApplicationHelper
-  # ----------------------------------------------------------------------------------------
-  # @: The Anh
-  # d: 150106
-  # TODO: add meta tags
-  # ----------------------------------------------------------------------------------------
-  def meta_tags()
-    meta_information = {}
-    meta_information['title'] = 'Tìm kiếm việc làm và Tuyển dụng nhanh - StepUpHR.vn'
-    meta_information['description'] = 'StepUpHR.vn - Mạng Việc làm & tuyển dụng uy tín tại Việt Nam. Tìm việc làm và ứng tuyển ngay việc làm mới từ nhà tuyển dụng hàng đầu tại Việt Nam.'
-    meta_information['keywords'] = 'Việc làm, tìm việc làm, tuyển dụng, ứng viên,  mạng tuyển dụng, việc làm online, việc làm bán thời gian'
-    meta_information['image'] = Rails.application.routes.url_helpers.root_url + ActionController::Base.helpers.image_url('settings/common/logo.png')
-    meta_information['url'] = ''
-    meta_information['title_name'] = 'StepUpHR.vn'
-    meta_information['canon_url'] = '#'
-    return meta_information
-  end
+  # # ----------------------------------------------------------------------------------------
+  # # @: The Anh
+  # # d: 150106
+  # # TODO: add meta tags
+  # # ----------------------------------------------------------------------------------------
+  # def meta_tags()
+  #   meta_information = {}
+  #   meta_information['title'] = 'Tìm kiếm việc làm và Tuyển dụng nhanh - StepUpHR.vn'
+  #   meta_information['description'] = 'StepUpHR.vn - Mạng Việc làm & tuyển dụng uy tín tại Việt Nam. Tìm việc làm và ứng tuyển ngay việc làm mới từ nhà tuyển dụng hàng đầu tại Việt Nam.'
+  #   meta_information['keywords'] = 'Việc làm, tìm việc làm, tuyển dụng, ứng viên,  mạng tuyển dụng, việc làm online, việc làm bán thời gian'
+  #   meta_information['image'] = Rails.application.routes.url_helpers.root_url + ActionController::Base.helpers.image_url('settings/common/logo.png')
+  #   meta_information['url'] = ''
+  #   meta_information['title_name'] = 'StepUpHR.vn'
+  #   meta_information['canon_url'] = '#'
+  #   return meta_information
+  # end
 
   # ----------------------------------------------------------------------------------------
   # @:
@@ -195,60 +195,9 @@ module ApplicationHelper
     end
   end
 
-  # -----------------------------------
-  # format to UTF-8
-  # -----------------------------------
-
-  # # string encoding to UTF-8
-  # # SJIS => UTF-8
-  # # 外部連携時使えるはず
-  # def format_to_utf8(str, encoding)
-  #   return str if str.nil?
-  #   str.force_encoding("ASCII-8BIT") if str.respond_to?(:force_encoding)
-  #   if str.empty?
-  #     str.force_encoding("UTF-8") if str.respond_to?(:force_encoding)
-  #     return str
-  #   end
-  #   enc = encoding.blank? ? "UTF-8" : encoding
-  #   if str.respond_to?(:force_encoding)
-  #     if enc.upcase != "UTF-8"
-  #       str.force_encoding(enc)
-  #       str = str.encode("UTF-8", :invalid => :replace,
-  #                        :undef => :replace, :replace => '?')
-  #     else
-  #       str.force_encoding("UTF-8")
-  #       if ! str.valid_encoding?
-  #         str = str.encode("US-ASCII", :invalid => :replace,
-  #                          :undef => :replace, :replace => '?').encode("UTF-8")
-  #       end
-  #     end
-  #   elsif RUBY_PLATFORM == 'java'
-  #     begin
-  #       ic = Iconv.new('UTF-8', enc)
-  #       str = ic.iconv(str)
-  #     rescue
-  #       str = str.gsub(%r{[^\r\n\t\x20-\x7e]}, '?')
-  #     end
-  #   else
-  #     ic = Iconv.new('UTF-8', enc)
-  #     txtar = ""
-  #     begin
-  #       txtar += ic.iconv(str)
-  #     rescue Iconv::IllegalSequence
-  #       txtar += $!.success
-  #       str = '?' + $!.failed[1,$!.failed.length]
-  #       retry
-  #     rescue
-  #       txtar += $!.success
-  #     end
-  #     str = txtar
-  #   end
-  #   str
-  # end
-
-   def omniauth_authorize_path(resource_name, provider)
-     send "#{resource_name}_omniauth_authorize_path", provider
-   end
+   # def omniauth_authorize_path(resource_name, provider)
+   #   send "#{resource_name}_omniauth_authorize_path", provider
+   # end
 
   # def valid_year?(year)
   #   year.present? && (year.to_i.in? 1900..Date.today.year)
@@ -264,17 +213,6 @@ module ApplicationHelper
 
   def convert_currency(number, option = {delimiter: ',', precision: 0, format: '%n'})
     return ActiveSupport::NumberHelper.number_to_currency(number, option)
-  end
-
-  # def format_price(number, option = {delimiter: ',', precision: 0, format: '%n'})
-  #   return "#{ActiveSupport::NumberHelper.number_to_currency(number, option)}#{I18n.t 'views.team.settings.curency'}"
-  # end
-
-  def sign_out(resource_or_scope=nil)
-    super
-    if cookies[:stepup_remember].present?
-      cookies.delete(:stepup_remember)
-    end
   end
 
 end

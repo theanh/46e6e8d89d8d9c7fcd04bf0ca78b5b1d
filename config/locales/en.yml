@@ -20,4 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: ""
+	common:
+		missing_param: "Param missing: %{param}"
+		invalid_param: "Param invalid: %{param}"
+		error:
+			unexpectedly: '500 error　finished unexpectedly'
+			no_login: 'Please login to use this function!'
+			missing_param: "Missing parram %{obj}!"
+			not_found: "%{obj} is not found!"
+			not_valid: "%{obj} is not valid!"
+			not_delete: "Cannot delete %{obj}!"
+			require_permission: 'Require permission!'
+			confirm_password: 'Confirm password is wrong'
+		validate:
+			numeric_only: 'Only accept numeric!'
+			email_is_exist: 'Sorry, it looks like this email belongs to an existing account. Please type another email!'

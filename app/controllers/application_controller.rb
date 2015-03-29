@@ -11,14 +11,14 @@ class ApplicationController < ActionController::Base
   # before_action :set_locale, :set_meta_tags
   # after_filter :cors_set_access_control_headers
 
-  # ----------------------------------------------------------------------------------------
-  # @: The Anh
-  # d: 150106
-  # TODO: set meta tags
-  # ----------------------------------------------------------------------------------------
-  def set_meta_tags
-    @meta_information = meta_tags
-  end
+  # # ----------------------------------------------------------------------------------------
+  # # @: The Anh
+  # # d: 150106
+  # # TODO: set meta tags
+  # # ----------------------------------------------------------------------------------------
+  # def set_meta_tags
+  #   @meta_information = meta_tags
+  # end
 
   # ----------------------------------------------------------------------------------------
   # @:

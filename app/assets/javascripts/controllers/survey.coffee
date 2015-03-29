@@ -15,22 +15,30 @@ angular.module('AppSurvey')
   $scope.submitted = false # variable set state submitted
   $scope.load_error = null
   $scope.load_result = null
+  $scope.master = {}
   $scope.attempts = {}
 
   # --------------------------------------------------------
   # public process
   #--- login
   $scope.submitSurvey = () ->
-    console.log 'aaa'
-    unless $scope.submitted
-      unless $scope.attempts || $scope.attempts.name || $scope.attempts.email
-        return false
-      $scope.submitted = true
-      $scope.auth_error = null
+    console.log $scope.survey_id
+    console.log $scope.attempts
+    if $scope.attempts
+      unless $scope.submitted
+        unless $scope.attempts['name'] || $scope.attempts['email']
+          return false
+        $scope.submitted = true
+        $scope.auth_error = null
 
-      # add new instances
-      $survey = new Survey()
-
+        # clone scope
+        $scope.attempts['survey_id'] = $scope.survey_id
+        $scope.master = angular.copy $scope.attempts
+        # add new instances
+        $survey = new Survey()
+        $survey.attemptSurvey($scope.master).then (res)->
+          console.log res
+        $scope.submitted = false
       # Session.login(user.email, user.password, user.remember).then ((response) ->
       #   $common.hideLoading()
       #   if response.data.type == 'UserType::Normal'
@@ -58,33 +66,29 @@ angular.module('AppSurvey')
   return
 
 .factory 'Survey',  ($http, $q, $rails, Validate, Common) ->
-  'use strict'
   # -------------------------
   # static variables
   $common = new Common
   $validate = new Validate
 
   _url =
-    active: $rails.root_url + 'api/v1/api_user18'
+    attempt_survey: $rails.root_url + 'api/v1/api_survey1'
 
   Survey = ()->
     # private
 
     # public
     survey =
-      search: (keyword, page, row_per_page, order_by)->
+      attemptSurvey: (survey)->
         deferred = $q.defer()
-        $common.showLoading()
-        url = _url.search
+        # $common.showLoading()
+        url = _url.attempt_survey
         $http.post(
           url,
-          keyword: keyword
-          page: page
-          row_per_page: row_per_page
-          order_by: order_by
+          survey: survey
         ).then (response) ->
           data = $validate.parseResult response
-          $common.hideLoading()
+          # $common.hideLoading()
           deferred.resolve data.data
           return
 

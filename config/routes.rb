@@ -7,7 +7,8 @@ AppSurvey::Application.routes.draw do
     #   match '/' => 'testing#index', :via => :get
     # end
     scope :v1, module: 'v1', as: 'v1' do
-      # post 'api_common1' # get common info
+      post 'api_survey1' # attempt survey
+      post 'api_survey2' # get survey result
     end
   end
   scope module: 'front' do

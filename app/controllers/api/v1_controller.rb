@@ -1,33 +1,36 @@
 class Api::V1Controller < ApiController
-  # ###################
-  # #### COMMON    ####
-  # ###################
-  # VALIDATE_COMMON = {
-  #     'arr_catalog' => {'type' => 'array', 'require' => {'catalog' => true}},
-  #     'is_filter' => {'type' => 'boolean', 'require' => {'catalog' => true}},
-  #     'is_get_url_search' => {'type' => 'boolean', 'require' => {}}
-  # }
-  # # ----------------------------------------------------------------------------------------
-  # # @: The Anh
-  # # d: 14/11/20
-  # # TODO: get common info
-  # # method: post
-  # # ----------------------------------------------------------------------------------------
-  # def api_common1
-  #   # check params
-  #   validated_param = validateParam(VALIDATE_COMMON, params[:common], 'catalog')
-  #   return if validated_param['failed']
+  ###################
+  #### COMMON    ####
+  ###################
+  VALIDATE_SURVEY = {
+    'email' => {'type' => 'email', 'require' => {'survey' => true}},
+    'name' => {'type' => 'string', 'require' => {'survey' => true}},
+    'question' => {'type' => 'array', 'require' => {'survey' => true}},
+  }
+  # ----------------------------------------------------------------------------------------
+  # @: The Anh
+  # d: 150329
+  # TODO: submit survey
+  # method: post
+  # ----------------------------------------------------------------------------------------
+  def api_survey1
+    # render_success(params[:survey]) and return
+    # check params
+    validated_param = validateParam(VALIDATE_SURVEY, params[:survey], 'survey')
+    return if validated_param['failed']
+    render_success(validated_param) and return
 
-  #   info = {}
-  #   if validated_param['arr_catalog']
-  #     info['catalog'] = {}
-  #     validated_param['arr_catalog'].each do | f |
+    attempt = survey.attempts.new
+    # # info = {}
+    # # if validated_param['arr_catalog']
+    # #   info['catalog'] = {}
+    # #   validated_param['arr_catalog'].each do | f |
         
-  #     end
-  #   end
+    # #   end
+    # # end
 
-  #   render_success(info) and return
-  # end
+    # render_success(info) and return
+  end
 
   private
 end
