@@ -1,7 +1,8 @@
 .wrapper ng-controller="SurveyCtrl" ng-init="showResult(#{@survey.id})"
 	.row
-		.col-sm-offset-3.col-sm-9
-			h2 Survey #{@survey.name}
+		.col-sm-offset-3.col-sm-6
+			h2 2012 SURVEY RESULTS
+			hr
 	.row
 		.col-sm-offset-3.col-sm-6
 			- @survey.questions.each_with_index do |question, index|

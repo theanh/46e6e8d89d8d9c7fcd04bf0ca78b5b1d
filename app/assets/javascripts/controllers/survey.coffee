@@ -5,7 +5,7 @@
 # f: survey controller
 # ----------------------------------------------------------
 angular.module('AppSurvey')
-.controller 'SurveyCtrl', ($location, $scope, Survey) ->
+.controller 'SurveyCtrl', ($scope, $rails, Survey) ->
   # --------------------------------------------------------
   # private variable
   $survey = null
@@ -84,28 +84,8 @@ angular.module('AppSurvey')
       # add new instances
       $survey = new Survey()
       $survey.attemptSurvey($scope.master).then (res)->
-        console.log res
-    # if ($scope.form_survey.$valid)
-    #   console.log 1
-    #   if $scope.attempts
-    #     unless $scope.submitted
-    #       unless $scope.attempts['name'] || $scope.attempts['email']
-    #         return false
-    #       $scope.submitted = true
-    #       $scope.auth_error = null
-
-    #       # clone scope
-    #       $scope.attempts['survey_id'] = $scope.survey_id
-    #       $scope.master = angular.copy $scope.attempts
-
-    #       # add new instances
-    #       $survey = new Survey()
-    #       $survey.attemptSurvey($scope.master).then (res)->
-    #         console.log res
-    #       $scope.submitted = false
-    # else
-    #   console.log 2
-    #   $scope.form_survey.submitted = true
+        if res.status == 1
+          location.href = $rails.root_url + 'survey/result'
     return
 
   # --- show survey result
@@ -201,7 +181,7 @@ angular.module('AppSurvey')
         ).then (response) ->
           data = $validate.parseResult response
           # $common.hideLoading()
-          deferred.resolve data.data
+          deferred.resolve data
           return
 
         return deferred.promise

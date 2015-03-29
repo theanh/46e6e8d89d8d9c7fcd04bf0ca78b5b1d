@@ -1,8 +1,11 @@
 .wrapper ng-controller="SurveyCtrl" ng-init="initSurvey(#{@survey.id}, #{@arr_chk_valid_questions})"
 	.row
-		.col-sm-offset-3.col-sm-9
+		.col-sm-offset-3.col-sm-6
 			h2 
 				| Survey #{@survey.name}
+			code
+				| * Required
+			hr
 	.row
 		.col-sm-offset-3.col-sm-6
 			form.form-horizontal.form-validation name="form_survey" novalidate="" valid-submit="submitSurvey()"
