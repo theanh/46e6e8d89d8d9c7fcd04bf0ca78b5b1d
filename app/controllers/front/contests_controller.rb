@@ -26,7 +26,6 @@ class Front::ContestsController < FrontController
   # end
 
   def survey
-    # @attempt = survey.attempts.new(params[:attempt])
     @survey ||= Survey::Survey.active.first
     render 'front/contests/attempts/new'
   end

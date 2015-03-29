@@ -20,10 +20,12 @@ angular.module('AppSurvey')
 
   # --------------------------------------------------------
   # public process
-  #--- login
+  # --- validate
+  $scope.checkValidate = ()->
+    return
+
+  # --- submit
   $scope.submitSurvey = () ->
-    console.log $scope.survey_id
-    console.log $scope.attempts
     if $scope.attempts
       unless $scope.submitted
         unless $scope.attempts['name'] || $scope.attempts['email']
@@ -32,7 +34,7 @@ angular.module('AppSurvey')
         $scope.auth_error = null
 
         # clone scope
-        $scope.attempts['survey_id'] = $scope.survey_id
+        # $scope.attempts['survey_id'] = $scope.survey_id
         $scope.master = angular.copy $scope.attempts
         # add new instances
         $survey = new Survey()
