@@ -51,16 +51,14 @@ class Api::V1Controller < ApiController
     # check params
     render_failed(100, t('common.error.missing_param', {obj: 'survey'})) and return if params[:survey].nil?
     render_failed(100, t('common.error.missing_param', {obj: 'survey id'})) and return if params[:survey][:survey_id].nil?
-    render_failed(100, t('common.error.missing_param', {obj: 'question id'})) and return if params[:survey][:question_id].nil?
     survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
     render_failed(100, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
-    question = survey.questions.find_by(:id => params[:survey][:question_id].to_i.abs)
-    render_failed(100, t('common.error.not_found', {obj: 'question'})) and return if question.nil?
 
-    info = Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => params[:survey][:question_id].to_i.abs).group('`survey_options`.`id`').count('survey_answers.id')
+    info = Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL")
+      .group('`survey_options`.`id`').select('count(`survey_answers`.`id`) as count, `survey_options`.`id` as id, `survey_options`.`text` as option_text, `survey_options`.`question_id` as question_id')
     render_success(info) and return
     # # test
-    # Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => 1).group('`survey_options`.`id`').count('survey_answers.id')
+    # Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => 1).group('`survey_options`.`id`').select('count(`survey_answers`.`id`) as count, `survey_options`.`id` as id, `survey_options`.`text` as option_text')
   end
 
   private

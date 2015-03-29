@@ -9,4 +9,4 @@
 				  .wrapper-lg
 				  	div
 				    	h4.m-t-none =((index + 1).to_s + '. ' + question.text).html_safe
-				  	div highchart='' id="chart#{index}" config="chart_config"
+				  	div highchart='' id="chart#{question.id}" config="chart_config#{question.id}"

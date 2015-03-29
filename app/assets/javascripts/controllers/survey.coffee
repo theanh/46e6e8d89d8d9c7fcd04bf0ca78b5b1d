@@ -36,6 +36,7 @@ angular.module('AppSurvey')
         # clone scope
         $scope.attempts['survey_id'] = $scope.survey_id
         $scope.master = angular.copy $scope.attempts
+
         # add new instances
         $survey = new Survey()
         $survey.attemptSurvey($scope.master).then (res)->
@@ -45,6 +46,7 @@ angular.module('AppSurvey')
 
   # --- show survey result
   $scope.showResult = (survey_id)->
+    # common chart config
     $scope.chart_config = 
       options:
         chart: 
@@ -53,55 +55,58 @@ angular.module('AppSurvey')
           plotShadow: false
         tooltip: 
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        # legend:
+        #   align: 'right'
+        #   verticalAlign: 'top'
+        #   layout: 'vertical'
+        #   x: 0
+        #   y: 100
+        #   floating: true
         plotOptions: 
           pie:
             allowPointSelect: true
             cursor: 'pointer'
             dataLabels:
-              enabled: true
+              enabled: false
               format: '<b>{point.name}</b>: {point.percentage:.1f} %'
               style: 
                 color: Highcharts.theme && Highcharts.theme.contrastTextColor || 'black'
+            showInLegend: true
         title: text: ''
       series: [{
         type: 'pie'
         name: ''
-        data: [
-          [
-            'Firefox'
-            45.0
-          ]
-          [
-            'IE'
-            26.8
-          ]
-          {
-            name: 'Chrome'
-            y: 12.8
-            sliced: true
-            selected: true
-          }
-          [
-            'Safari'
-            8.5
-          ]
-          [
-            'Opera'
-            6.2
-          ]
-          [
-            'Others'
-            0.7
-          ]
-        ]
+        data: []
       }]
       loading: false
-      # size:
-      #   width: 400
-      #   height: 300
       func: (chart) ->
-        console.log chart
         return
+
+    # add new instances
+    data_statistic = []
+    $survey = new Survey()
+    param = 
+      survey_id: survey_id
+    $survey.showSurveyResult(param).then (res)->
+      if res.status == 1 && res.data[0] && res.data[0]['question_id']
+        data_statistic = []
+        cur_q = res.data[0]['question_id']
+        vi_length = res.data.length - 1
+        angular.forEach res.data, (v, i)->
+          if (cur_q != v['question_id']) || ( i == vi_length )
+            $scope['chart_config'+cur_q] = angular.copy $scope.chart_config
+
+            # if the last element => push it to final array!
+            if i == vi_length
+              data_statistic.push([v['option_text'], parseInt(v['count'])])
+            $scope['chart_config'+cur_q]['series'][0]['data'] = data_statistic
+
+            # reset flag
+            cur_q = v['question_id']
+            data_statistic = []
+          # push option result to array
+          data_statistic.push([v['option_text'], parseInt(v['count'])])
+      return
     return
 
   return
@@ -114,6 +119,7 @@ angular.module('AppSurvey')
 
   _url =
     attempt_survey: $rails.root_url + 'api/v1/api_survey1'
+    show_survey_result: $rails.root_url + 'api/v1/api_survey2'
 
   Survey = ()->
     # private
@@ -131,6 +137,21 @@ angular.module('AppSurvey')
           data = $validate.parseResult response
           # $common.hideLoading()
           deferred.resolve data.data
+          return
+
+        return deferred.promise
+
+      showSurveyResult: (survey)->
+        deferred = $q.defer()
+        # $common.showLoading()
+        url = _url.show_survey_result
+        $http.post(
+          url,
+          survey: survey
+        ).then (response) ->
+          data = $validate.parseResult response
+          # $common.hideLoading()
+          deferred.resolve data
           return
 
         return deferred.promise
