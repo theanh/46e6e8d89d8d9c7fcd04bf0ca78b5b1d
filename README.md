@@ -17,7 +17,7 @@ Application allows user to take a survey
     - Thank you Runtime Revolution for this gem!
 
 #Sample data
-  Reference from 
+  References 
   - http://www.swc.com/perspective/surveys
   - http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
 
