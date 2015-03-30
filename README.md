@@ -11,9 +11,11 @@ Application allows user to take a survey
 
 #Note
 - This app contain hightchart js that allow using under free licenses only for non-profit project.
+  + There are several free JavaScript Libraries, example Raphaël, that can be extend to draw charts easily.
 - Ruby gem:
   + `gem 'survey', '~> 0.1'`: https://github.com/runtimerevolution/survey
-    - According to author: "Survey models were designed to be flexible enough in order to be extended and integrated with your own models."
+    - According to Author: "Survey models were designed to be flexible enough in order to be extended and integrated with your own models."
+    - This gem define the concept of participant: "Every participant can respond to surveys and every response is registered as a attempt"
     - Thank you Runtime Revolution for this gem!
 
 #Sample data
