@@ -1,4 +1,4 @@
-# app_survey
+# App Survey
 Application allows user to take a survey
 
 # How to run
@@ -10,7 +10,10 @@ Application allows user to take a survey
   + bundle exec rake db:migrate
   + bundle exec rake db:setup
 
+# Note
+- This app contain hightchart js that allow used under free licenses only for non-profit project.
+
 # Sample data
-Reference from 
-- http://www.swc.com/perspective/surveys
-- http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
+  Reference from 
+  - http://www.swc.com/perspective/surveys
+  - http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
