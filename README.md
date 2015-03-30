@@ -13,7 +13,7 @@ Application allows user to take a survey
 - This app contain hightchart js that allow using under free licenses only for non-profit project.
 - Ruby gem:
   + `gem 'survey', '~> 0.1'`: https://github.com/runtimerevolution/survey
-    This gem define models, that were designed to be flexible enough in order to be extended and integrated with almost every models.
+      This gem define models, that were designed to be flexible enough in order to be extended and integrated with almost every models.
 
 #Sample data
   Reference from 
