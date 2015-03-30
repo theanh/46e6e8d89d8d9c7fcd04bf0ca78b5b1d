@@ -11,7 +11,7 @@ Application allows user to take a survey
   + bundle exec rake db:setup
 
 # Note
-- This app contain hightchart js that allow used under free licenses only for non-profit project.
+- This app contain hightchart js that allow using under free licenses only for non-profit project.
 
 # Sample data
   Reference from 
