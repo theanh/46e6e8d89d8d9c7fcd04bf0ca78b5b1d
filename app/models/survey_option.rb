@@ -5,17 +5,15 @@ class SurveyOption < ActiveRecord::Base
   #------------------------------- begin module ------------------------------------#
   #------------------------------- begin validations -------------------------------#
   #------------------------------- begin named scopes ------------------------------#
-  # TODO count answer by question option
-  scope :count, lambda{||}
   #------------------------------- begin external libraries ------------------------#
   #------------------------------- begin callback ----------------------------------#
   #------------------------------- begin class methods -----------------------------#
   #------------------------------- begin instance methods --------------------------#
-  def as_json(options = {})
-    if options == {}
-      super only: [ :id ], methods: []
-    else
-      super options
-    end
-  end
+  #def as_json(options = {})
+  #  if options == {}
+  #    super only: [ :id ], methods: []
+  #  else
+  #    super options
+  #  end
+  #end
 end
