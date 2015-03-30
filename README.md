@@ -5,8 +5,8 @@ Application allows user to take a survey
 1. Install dependencies
 2. Migrate database
 3. Setup sample data
-- Run these commands:
   + Install dependencies: `bundle install --path vendor/bundle`
+  + Clone sample_database.yml into database.yml and change config to connect your database.
   + Create database & sample data: `bundle exec rake db:setup`
 
 #Note
