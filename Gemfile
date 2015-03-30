@@ -74,3 +74,9 @@ gem 'nokogiri', '~> 1.6.6.2'
 # # admin
 # # ===
 # gem 'rails_admin'
+
+# ============================================================
+# Develop env
+group :development do
+  gem 'rails-erd'
+end

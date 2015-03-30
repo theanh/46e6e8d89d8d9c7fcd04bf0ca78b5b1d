@@ -16,3 +16,7 @@ Application allows user to take a survey
   Reference from 
   - http://www.swc.com/perspective/surveys
   - http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
+
+## Domain Model
+Run `rake generate_erd` to regenerate (must have graphvis).
+![](/erd.png)
