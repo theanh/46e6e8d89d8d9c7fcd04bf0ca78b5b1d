@@ -21,4 +21,4 @@ Application allows user to take a survey
   - http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
 
 #Documentation
-  + Please view https://github.com/theanh/46e6e8d89d8d9c7fcd04bf0ca78b5b1d/wiki/Document
+  + Please check https://github.com/theanh/46e6e8d89d8d9c7fcd04bf0ca78b5b1d/wiki/Document
