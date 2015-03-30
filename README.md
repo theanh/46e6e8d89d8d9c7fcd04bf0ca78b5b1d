@@ -6,17 +6,20 @@ Application allows user to take a survey
 2. Migrate database
 3. Setup sample data
 - Run these commands:
-  + `bundle install --path vendor/bundle`
-  + `bundle exec rake db:setup`
+  + Install dependencies: `bundle install --path vendor/bundle`
+  + Create database & sample data: `bundle exec rake db:setup`
 
 #Note
-- This app contain hightchart js that allow using under free licenses only for non-profit project.
+- This app contains hightchart js that allows using under free licenses only for non-profit projects.
+  + There are several free JavaScript Libraries, i.e. Raphaël, that can be extended to draw charts easily.
 - Ruby gem:
   + `gem 'survey', '~> 0.1'`: https://github.com/runtimerevolution/survey
-    - This gem define models, that were designed to be flexible enough in order to be extended and integrated with almost every models.
+    - According to Author: "Survey models were designed to be flexible enough in order to be extended and integrated with your own models."
+    - This gem defines the concept of participant: "Every participant can respond to surveys and every response is registered as a attempt"
+    - Thank you Runtime Revolution for this gem!
 
 #Sample data
-  Reference from 
+  References 
   - http://www.swc.com/perspective/surveys
   - http://www.swc.com/uploads/2012_Tech_Trends_Survey.pdf
 
