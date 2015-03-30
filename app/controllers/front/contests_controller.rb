@@ -13,6 +13,10 @@ class Front::ContestsController < FrontController
 
   def survey_result
     @survey ||= Survey::Survey.active.first
-    render 'front/contests/attempts/result'
+    if @survey
+      render 'front/contests/attempts/result'
+    else
+      render 'front/contests/attempts/alert_empty'
+    end
   end
 end

@@ -1,9 +1,9 @@
-.container
+.container ng-controller="AppCtrl"
   .col-md-4
     h2 
       | Welcome to IndexMedia Survey
     hr  
-    a.btn.btn-primary.btn-lg href="#{survey_path}" type="button"
+    a.btn.btn-primary.btn-lg href="javascript:void(0)" title="Take the Survey" ng-click="goTo('#{survey_path}')"
       | Take the Survey
   .col-md-8
     =image_tag 'settings/common/panel.png', :alt => 'Index Media', :class => 'img-full'

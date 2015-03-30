@@ -3,8 +3,8 @@
 # d: 150328
 # f: init app
 # ----------------------------------------------------------
+'use strict'
 ((angular) ->
-  'use strict'
   angular.module('AppSurvey', [
     # 'angular-data.DSCacheFactory'
     'pascalprecht.translate'
@@ -43,5 +43,6 @@
         config
     ]
     $httpProvider.interceptors.push 'railsAssetsInterceptor'
+    
     return
 ) window.angular

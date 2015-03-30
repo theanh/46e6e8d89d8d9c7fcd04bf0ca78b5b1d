@@ -1,4 +1,4 @@
-nav.navbar.navbar-default role="navigation" 
+nav.navbar.navbar-default role="navigation" ng-controller="AppCtrl"
   .container
     .navbar-header
       button.navbar-toggle data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button" 
@@ -6,17 +6,10 @@ nav.navbar.navbar-default role="navigation"
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand href="#{root_path}"
+      a.navbar-brand href="javascript:void(0)" title="Index Media" ng-click="goTo('#{root_path}')"
         =image_tag 'settings/common/index_media_logo.png', :alt => 'Index Media'
     .collapse.navbar-collapse.navbar-ex1-collapse
       ul.nav.navbar-nav
         li
-          a href="#{survey_path}"
+          a href="javascript:void(0)" title="Take the Survey" ng-click="goTo('#{survey_path}')"
             | Take the Survey
-        / li ng-show="auth" 
-        /   a href="#/result"  Survey Result
-      / ul.nav.navbar-nav.navbar-right
-      /   li.active.ng-hide ng-hide="auth" 
-      /     a href="#/login"  Login
-      /   li ng-show="auth" 
-      /     a href="" ng-click="logout()"  Logout
