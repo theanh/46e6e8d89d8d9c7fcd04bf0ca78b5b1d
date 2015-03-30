@@ -51,6 +51,8 @@ angular.module("AppSurvey")
               frt_invalid = elem.find('.ng-invalid')[0]
               if frt_invalid
                 frt_invalid.focus()
+
+              return false
             , 1
           return
         return
