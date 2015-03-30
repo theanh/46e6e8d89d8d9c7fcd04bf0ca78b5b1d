@@ -1,6 +1,6 @@
 class SurveyOption < ActiveRecord::Base
-	acts_as_paranoid # logical deletion!
-	#------------------------------- begin accessors ---------------------------------#
+  acts_as_paranoid # logical deletion!
+  #------------------------------- begin accessors ---------------------------------#
   #------------------------------- begin associations ------------------------------#
   #------------------------------- begin module ------------------------------------#
   #------------------------------- begin validations -------------------------------#
