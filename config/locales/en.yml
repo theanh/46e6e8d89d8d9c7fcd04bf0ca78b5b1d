@@ -35,7 +35,7 @@ en:
     img_max_size: "Image too big. Please choose another size <= {{max_img_size}}!"
     invalid_file_type: 'Invalid file type!'
     error:
-      unexpectedly: '500 error　finished unexpectedly'
+      unexpectedly: 'Task finished unexpectedly'
       no_login: 'Please login to use this function!'
       missing_param: "Missing parram %{obj}!"
       not_found: "%{obj} is not found!"

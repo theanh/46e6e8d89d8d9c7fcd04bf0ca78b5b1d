@@ -14,8 +14,9 @@ class Api::V1Controller < ApiController
     render_failed(100, t('common.error.missing_param', {obj: 'question'})) and return if params[:survey][:question].nil?
 
     survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
-    render_failed(100, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
+    render_failed(104, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
     attempt = survey.attempts.new
+
     # check user exist?
     user = User.find_by(:email => params[:survey][:email])
     if user.nil?
@@ -25,20 +26,27 @@ class Api::V1Controller < ApiController
         name: params[:survey][:name]
       )
     end
+
     # set participant
     attempt.participant = user
-    attempt.save!
-    params[:survey][:question].each do |question|
-      question[1].each do |op|
-        if op[1]
-          attempt.answers.create!(
-            question_id: question[0],
-            option_id: op[0]
-          )
-        end
-      end
-    end
-    render_success(attempt.answers) and return
+
+    # begin transaction
+    ActiveRecord::Base.transaction do
+    	attempt.save!
+	    params[:survey][:question].each do |question|
+	      question[1].each do |op|
+	        if op[1]
+	          attempt.answers.create!(
+	            question_id: question[0],
+	            option_id: op[0]
+	          )
+	        end
+	      end
+	    end
+		end
+		# end transaction
+    render_success(attempt.answers) and return if attempt.answers
+    render_failed(105, t('common.error.unexpectedly')) and return
   end
 
   # ---------------------------------------------------------------------------------
@@ -52,7 +60,7 @@ class Api::V1Controller < ApiController
     render_failed(100, t('common.error.missing_param', {obj: 'survey'})) and return if params[:survey].nil?
     render_failed(100, t('common.error.missing_param', {obj: 'survey id'})) and return if params[:survey][:survey_id].nil?
     survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
-    render_failed(100, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
+    render_failed(104, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
 
     info = Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL")
       .group('`survey_options`.`id`').select('count(`survey_answers`.`id`) as count, `survey_options`.`id` as id, `survey_options`.`text` as option_text, `survey_options`.`question_id` as question_id')

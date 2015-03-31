@@ -152,10 +152,6 @@ module ApplicationHelper
     render_failed(0, message)
   end
 
-  def render_failed_by_no_login(message = I18n.t('common.error.no_login'), response_type = 'json')
-    render_failed(102, message, response_type = 'json')
-  end
-
   def render_failed_by_missing_params(message = I18n.t('common.error.missing_param'), response_type = 'json')
     render_failed(100, message, response_type = 'json')
   end
@@ -164,6 +160,10 @@ module ApplicationHelper
     render_failed(101, message, response_type = 'json')
   end
 
+  def render_failed_by_no_login(message = I18n.t('common.error.no_login'), response_type = 'json')
+    render_failed(102, message, response_type = 'json')
+  end
+  
   def render_failed_by_required_operator(message = I18n.t('common.error.require_permission'), response_type = 'json')
     render_failed(103, message, response_type = 'json')
   end
