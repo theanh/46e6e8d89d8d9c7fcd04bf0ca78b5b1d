@@ -31,5 +31,22 @@ module AppSurvey
     config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*"].sort_by { |dir| -dir.size }
 
     config.assets.precompile += %w{locales/*.json}
+
+    # customization on the generating workflow 
+    config.generators do |g|
+      g.orm                 :active_record
+      g.template_engine     :slim
+      g.test_framework      :test_unit, fixture: false
+      g.migration           false
+      g.orm                 false
+      g.scaffold_controller false
+      g.jbuilder            false
+      g.resource_route      false
+      g.helper              false
+      g.assets              false
+      # g.stylesheets         false
+      # g.javascripts         false
+      g.test_framework      false
+    end
   end
 end
