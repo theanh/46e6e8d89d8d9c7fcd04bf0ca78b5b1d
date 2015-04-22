@@ -4,7 +4,7 @@ class Front::ContestsController < FrontController
   def survey
     @survey ||= Survey::Survey.active.first
     if @survey && @survey.questions.length > 0
-      @arr_chk_valid_questions = @survey.questions.as_json.collect { |item|  item['id'] }.compact
+      @arr_chk_valid_questions = @survey.questions.collect { |item|  item['id'] }.compact.as_json
       render 'front/contests/attempts/new'
     else
       render 'front/contests/attempts/alert_empty'
