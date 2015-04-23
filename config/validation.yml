@@ -1,0 +1,12 @@
+user:
+  email:
+    validates:
+      length:
+        minimum: 1
+        maximum: 255
+        allow_blank: false
+  name:
+    validates:
+      length:
+        maximum: 255
+        allow_blank: true
