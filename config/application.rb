@@ -36,9 +36,11 @@ module AppSurvey
     config.generators do |g|
       g.orm                 :active_record
       g.template_engine     :slim
-      g.test_framework      :test_unit, fixture: false
-      g.migration           false
-      g.orm                 false
+      # g.test_framework      :rspec, :fixture => false
+      # g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+      
+      g.no_migration        true
+      # g.orm                 false
       g.scaffold_controller false
       g.jbuilder            false
       g.resource_route      false
@@ -46,7 +48,8 @@ module AppSurvey
       g.assets              false
       # g.stylesheets         false
       # g.javascripts         false
-      g.test_framework      false
+      # g.test_framework      false
+      # g.factory_girl        true
     end
   end
 end
