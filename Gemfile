@@ -6,7 +6,6 @@ gem 'rails', '4.1.5'
 # ============================================================
 # database
 # ===
-gem 'mysql2'
 # Bulk insert. ex   User.import users => makes bulk insert sql
 gem 'activerecord-import'
 # Create survey
@@ -76,7 +75,14 @@ gem 'nokogiri', '~> 1.6.6.2'
 
 # ============================================================
 # Develop env
+group :production do
+	gem 'pg', '~> 0.18.2'
+end
+
+# ============================================================
+# Develop env
 group :development do
+	gem 'mysql2'
   gem 'rails-erd'
 end
 group :development, :test do
