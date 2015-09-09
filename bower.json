@@ -1,0 +1,29 @@
+{
+  "name": "survey",
+  "version": "0.0.1",
+  "homepage": "https://github.com/theanh/46e6e8d89d8d9c7fcd04bf0ca78b5b1d",
+  "authors": [
+    "The Anh Nguyen <theanh.huy@gmail.com>"
+  ],
+  "description": "Talu survey on heroku",
+  "keywords": ["Survey", "heroku"],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.3.16",
+    "angular-translate": "~2.7.2",
+    "angular-translate-loader-static-files": "~2.7.2",
+    "Sortable": "~1.2.1",
+    "angular-ui-sortable": "~0.13.4",
+    "angular-route": "~1.4.6",
+    "angular-bootstrap": "~0.13.4",
+    "highcharts": "~4.1.8",
+    "highcharts-ng": "~0.0.10"
+  }
+}

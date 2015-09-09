@@ -5,16 +5,20 @@ angular.module("AppSurvey")
 # d: 150329
 # f: Directive Scroll To Top
 # ----------------------------------------------------------------------------------------
-.directive 'scroll', ['$window', ($window) ->
-  (scope, element, attrs) ->
-    angular.element($window).bind 'scroll', ->
-      if @pageYOffset >= 300
-        scope.show_when_scroll = true
-      else
-        scope.show_when_scroll = false
-      scope.$apply()
+.directive 'scroll', [
+  '$window',
+  ($window) ->
+    link: (scope, element, attrs) ->
+      angular.element($window).bind 'scroll', ->
+        if @pageYOffset >= 300
+          scope.show_when_scroll = true
+        else
+          scope.show_when_scroll = false
+        scope.$apply()
+
+        return
+
       return
-    return
 ]
 
 # ----------------------------------------------------------------------------------------
@@ -54,7 +58,10 @@ angular.module("AppSurvey")
 
               return false
             , 1
+
           return
+
         return
+        
       return
 ]

@@ -28,7 +28,8 @@ module AppSurvey
     config.exceptions_app = self.routes
 
     # load extend libs
-    config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*"].sort_by { |dir| -dir.size }
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    # config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*, "].sort_by { |dir| -dir.size }
 
     config.assets.precompile += %w{locales/*.json}
 
