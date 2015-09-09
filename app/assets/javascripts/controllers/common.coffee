@@ -4,7 +4,7 @@
 # d: 141120
 # f: Common controller -> get common info of system
 # ----------------------------------------------------------
-angular.module('AppSurvey').controller 'CommonCtrl', ($scope, Common) ->
+angular.module('AppSurvey').controller 'CommonCtrl', ['$scope', 'Common', ($scope, Common) ->
   # global variable
   $common = new Common()
 
@@ -28,9 +28,9 @@ angular.module('AppSurvey').controller 'CommonCtrl', ($scope, Common) ->
     return
 
   return
-
-.factory 'Common',  ($http, $compile, $q, $templateCache, $rails, $timeout, $translate, $modal, Validate, Modal) ->
-  'use strict'
+]
+.factory 'Common', ['$http', '$compile', '$q', '$templateCache', '$rails', '$timeout', '$translate', '$modal', 'Validate', 'Modal',
+ ($http, $compile, $q, $templateCache, $rails, $timeout, $translate, $modal, Validate, Modal) ->
   # -------------------------
   # static variables
   $validate = new Validate()
@@ -365,3 +365,4 @@ angular.module('AppSurvey').controller 'CommonCtrl', ($scope, Common) ->
         return
 
   Common
+]

@@ -1,6 +1,6 @@
 //= require jquery
-//#= require jquery_ujs
-//#= require turbolinks
+//= require jquery_ujs
+//= require turbolinks
 //= require bootstrap-sprockets
 //= require lodash
 //= require ./libs/angular/angular.min

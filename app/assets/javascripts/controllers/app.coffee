@@ -5,11 +5,12 @@
 # f: application controller
 # ----------------------------------------------------------
 angular.module('AppSurvey')
-.controller 'AppCtrl', ($scope) ->
-  # --------------------------------------------------------
-  # public process
-  $scope.goTo = (url)->
-    location.href = url
-    return
+.controller 'AppCtrl', ['$scope', ($scope) ->
+	# --------------------------------------------------------
+	# public process
+	$scope.goTo = (url)->
+	  location.href = url
+	  return
 
-  return
+	return
+]

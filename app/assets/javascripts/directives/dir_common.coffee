@@ -5,7 +5,7 @@ angular.module("AppSurvey")
 # d: 150329
 # f: Directive Scroll To Top
 # ----------------------------------------------------------------------------------------
-.directive 'scroll', [($window) ->
+.directive 'scroll', ['$window', ($window) ->
   (scope, element, attrs) ->
     angular.element($window).bind 'scroll', ->
       if @pageYOffset >= 300

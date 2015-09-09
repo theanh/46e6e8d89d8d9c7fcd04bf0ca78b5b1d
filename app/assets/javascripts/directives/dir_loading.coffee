@@ -1,5 +1,6 @@
 'use strict'
-angular.module('AppSurvey').directive "dirLoading",($compile, $templateCache) ->
+angular.module('AppSurvey')
+.directive "dirLoading", ['$compile', '$templateCache', ($compile, $templateCache) ->
   $templateCache.put 'loading-block', 'pages/directives/loading/block.html'
 
   templateUrl: $templateCache.get 'loading-block'
@@ -24,3 +25,4 @@ angular.module('AppSurvey').directive "dirLoading",($compile, $templateCache) ->
     elms.hide()
 
     return
+]

@@ -5,7 +5,7 @@
 # f: survey controller
 # ----------------------------------------------------------
 angular.module('AppSurvey')
-.controller 'SurveyCtrl', ($scope, $rails, Survey) ->
+.controller 'SurveyCtrl', ['$scope', '$rails', 'Survey', ($scope, $rails, Survey) ->
   # --------------------------------------------------------
   # private variable
   $survey = null
@@ -155,8 +155,8 @@ angular.module('AppSurvey')
     return
 
   return
-
-.factory 'Survey',  ($http, $q, $rails, Validate, Common) ->
+]
+.factory 'Survey', ['$http', '$q', '$rails', 'Validate', 'Common', ($http, $q, $rails, Validate, Common) ->
   # -------------------------
   # static variables
   $common = new Common
@@ -200,3 +200,4 @@ angular.module('AppSurvey')
           return
 
         return deferred.promise
+]

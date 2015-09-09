@@ -4,7 +4,8 @@
 # f: Modal module
 # ----------------------------------------------------------
 'use strict'
-angular.module('ModalModule', []).factory 'Modal',  ($modal) ->
+angular.module('ModalModule', [])
+.factory 'Modal', ['$modal', ($modal) ->
   # -----------------------------------
   #  init variable
   # -- static
@@ -88,3 +89,4 @@ angular.module('ModalModule', []).factory 'Modal',  ($modal) ->
     return modal
 
   Modal
+]
