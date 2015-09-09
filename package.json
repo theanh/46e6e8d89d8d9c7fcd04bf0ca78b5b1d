@@ -2,14 +2,12 @@
   "name": "talu-survey",
   "description": "Application allows user to take a survey",
   "version": "0.0.1",
-  "dependencies": {
-    "bower": "~1.4"
-  },
   "engine": {
-    "node": "~0.12.x",
-    "npm": "~2.9"
+    "node": "0.10.x",
+    "npm": "~2.1.x"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "start": "node index.js",
+    "postinstall": "bower install"
   }
 }
