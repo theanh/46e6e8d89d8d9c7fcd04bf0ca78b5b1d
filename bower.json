@@ -6,7 +6,10 @@
     "The Anh Nguyen <theanh.huy@gmail.com>"
   ],
   "description": "Talu survey on heroku",
-  "keywords": ["Survey", "heroku"],
+  "keywords": [
+    "Survey",
+    "heroku"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -25,5 +28,8 @@
     "angular-bootstrap": "~0.13.4",
     "highcharts": "~4.1.8",
     "highcharts-ng": "~0.0.10"
+  },
+  "resolutions": {
+    "angular": "1.3.16"
   }
 }

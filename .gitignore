@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore database config.
+/config/database.yml
+
 # Ignore bundler config.
 /.bundle
 
@@ -14,13 +17,14 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/vendor/bundle
-/vendor/assets/bower_components
-/config/database.yml
 /.idea
 /public/system/*
 /public/temp/*
 /public/assets/*
+
+# Ignore all vendors.
+/vendor/bundle
+/vendor/assets/bower_components
 
 # Ignore front develop-files
 node_modules
