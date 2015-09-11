@@ -2,18 +2,22 @@ include ActionView::Helpers
 class Setup
   def self.run
     conn = ActiveRecord::Base.connection
-    conn.execute('SET FOREIGN_KEY_CHECKS = 0')
+    # conn.execute('SET FOREIGN_KEY_CHECKS = 0')
 
     self.clear_tables
 
     # load from csv
-    self.tables.each do |table|
-      next unless File.exist?("db/csv/#{table}.csv")
-      self.load_from_csv(table)
-      p "initialized #{table}"
+    transaction do
+      self.tables.each do |table|
+        connection.execute("SET CONSTRAINTS #{table} DEFERRED;")
+        
+        next unless File.exist?("db/csv/#{table}.csv")
+        self.load_from_csv(table)
+        p "initialized #{table}"
+      end
     end
 
-    conn.execute('SET FOREIGN_KEY_CHECKS = 1')
+    # conn.execute('SET FOREIGN_KEY_CHECKS = 1')
     p "setup finished successfully"
   end
 
