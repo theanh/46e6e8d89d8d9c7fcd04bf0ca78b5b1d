@@ -8,7 +8,7 @@ class Setup
     # load from csv
     ActiveRecord::Base.transaction do
       self.tables.each do |table|
-        connection.execute("SET CONSTRAINTS #{table} DEFERRED;")
+        conn.execute("SET CONSTRAINTS #{table} DEFERRED;")
         
         next unless File.exist?("db/csv/#{table}.csv")
         self.load_from_csv(table)
