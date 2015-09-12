@@ -6,7 +6,7 @@ class Setup
     self.clear_tables
 
     # load from csv
-    transaction do
+    ActiveRecord::Base.transaction do
       self.tables.each do |table|
         connection.execute("SET CONSTRAINTS #{table} DEFERRED;")
         
