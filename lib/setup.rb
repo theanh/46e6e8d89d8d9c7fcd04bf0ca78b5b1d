@@ -45,7 +45,7 @@ class Setup
 
   def self.tables
     conn = ActiveRecord::Base.connection
-    hash_array = conn.select("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';")
+    hash_array = conn.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';")
     tables = []
     hash_array.each do |hash|
       next if hash.values[0] == 'schema_migrations'
