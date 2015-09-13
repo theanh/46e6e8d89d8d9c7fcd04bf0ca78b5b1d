@@ -62,11 +62,12 @@ class Api::V1Controller < ApiController
     survey = Survey::Survey.active.find_by(:id => params[:survey][:survey_id].to_i.abs)
     render_failed(104, t('common.error.not_found', {obj: 'survey'})) and return if survey.nil?
 
-    info = Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL")
-      .group('`survey_options`.`id`').select('count(`survey_answers`.`id`) as count, `survey_options`.`id` as id, `survey_options`.`text` as option_text, `survey_options`.`question_id` as question_id')
+    info = Survey::Option.joins("left join survey_answers on survey_answers.option_id = survey_options.id AND survey_answers.deleted_at IS NULL")
+      .group('survey_options.id')
+      .select('count(survey_answers.id) as count, survey_options.id as id, survey_options.text as option_text, survey_options.question_id as question_id')
     render_success(info) and return
     # # test
-    # Survey::Option.joins("left join `survey_answers` on `survey_answers`.`option_id` = `survey_options`.`id` AND `survey_answers`.`deleted_at` IS NULL").where(:question_id => 1).group('`survey_options`.`id`').select('count(`survey_answers`.`id`) as count, `survey_options`.`id` as id, `survey_options`.`text` as option_text')
+    # Survey::Option.joins("left join survey_answers on survey_answers.option_id = survey_options.id AND survey_answers.deleted_at IS NULL").where(:question_id => 1).group('survey_options.id').select('count(survey_answers.id) as count, survey_options.id as id, survey_options.text as option_text')
   end
 
   private
