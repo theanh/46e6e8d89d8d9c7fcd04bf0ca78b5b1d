@@ -7,13 +7,14 @@ class Setup
 
     # load from csv
     ActiveRecord::Base.transaction do
+      conn.execute("SET CONSTRAINTS ALL DEFERRED;")
       self.tables.each do |table|
-        conn.execute("SET CONSTRAINTS #{table} DEFERRED;")
-        
         next unless File.exist?("db/csv/#{table}.csv")
         self.load_from_csv(table)
         p "initialized #{table}"
       end
+
+      conn.execute("SET CONSTRAINTS ALL IMMEDIATE;")
     end
 
     p "setup finished successfully"
