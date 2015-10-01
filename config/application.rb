@@ -27,30 +27,17 @@ module AppSurvey
 
     config.exceptions_app = self.routes
 
-    # load extend libs
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
-    # config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*, "].sort_by { |dir| -dir.size }
-
-    config.assets.precompile += %w{locales/*.json}
-
     # customization on the generating workflow 
     config.generators do |g|
       g.orm                 :active_record
       g.template_engine     :slim
-      # g.test_framework      :rspec, :fixture => false
-      # g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       
       g.no_migration        true
-      # g.orm                 false
       g.scaffold_controller false
       g.jbuilder            false
       g.resource_route      false
       g.helper              false
       g.assets              false
-      # g.stylesheets         false
-      # g.javascripts         false
-      # g.test_framework      false
-      # g.factory_girl        true
     end
   end
 end
