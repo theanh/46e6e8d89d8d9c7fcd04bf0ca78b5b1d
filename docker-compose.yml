@@ -2,7 +2,7 @@ db:
   image: postgres
 web:
   build: .
-  command: bash -c "bundle exec puma -C config/puma.rb -p 3000 -b '0.0.0.0'"
+  command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
   volumes:
     - .:/dk-survey
   ports:
