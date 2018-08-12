@@ -2,9 +2,9 @@ scss:
   enabled: false
 
 ruby:
-  config_file: .ruby-style.yml
+  config_file: ./ci/.ruby-style.yml
 
-javascript:
-  ignore_file: .javascript_ignore
+coffeescript:
+  config_file: ./ci/.coffeescript-style.json
 
 fail_on_violations: true

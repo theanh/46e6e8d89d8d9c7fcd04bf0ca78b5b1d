@@ -9,5 +9,4 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( Sortable/* angular-translate/* angular/*.json highcharts/* highcharts-ng/*.js highcharts-ng/*.html highcharts-ng/*.json angular-bootstrap/* angular-route/* jquery-ui/* )
 # Rails.application.config.assets.precompile += %w( Sortable/component.json, locales/*.json )
